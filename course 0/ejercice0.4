@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant browser as Navegador
+    participant server as Servidor
+
+    Note right of browser: Escribís "Argentina presente" y clickeás Save
+
+    browser->>server: POST de la nueva nota
+    activate server
+    Note left of server: El server la guarda
+    server-->>browser: "¡Listo! Ahora cargá de nuevo la página" (Redirección)
+    deactivate server
+
+    browser->>server: GET para recargar el sitio
+    activate server
+    server-->>browser: Mandá el HTML, CSS y JS de nuevo
+    deactivate server
+
+    Note right of browser: El JS se despierta y pide los datos actualizados
+
+    browser->>server: GET para bajar el JSON con las notas
+    activate server
+    server-->>browser: [{ "content": "Argentina presente", ... }, ... ]
+    deactivate server
+
+    Note right of browser: El navegador dibuja la lista nueva en pantalla
