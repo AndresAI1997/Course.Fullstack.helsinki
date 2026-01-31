@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant browser as Navegador
+    participant server as Servidor
+
+    Note right of browser: El usuario escribe la nota y hace clic en Save
+
+    Note right of browser: El JS del navegador agrega la nota a la lista localmente<br/>y redibuja la pantalla al toque (opcional según la lógica)
+
+    browser->>server: POST https://studies.cs.helsinki.fi
+    activate server
+    Note left of server: El servidor guarda la nota en el JSON
+    server-->>browser: 201 Created (Confirmación)
+    deactivate server
+
+    Note right of browser: Como no hubo recarga, el JS ya sabe que salió todo bien<br/>y mantiene la nota nueva visible en la lista.
